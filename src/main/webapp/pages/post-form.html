@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>post-form-page</title>
+    </head>
+    <body>
+        <form th:action="@{/post/create}" method="post" th:object="${postCreateDto}">
+            <label th:for="${#ids.next('title')}">title:</label>
+            <br>
+            <input type="text" th:field="*{title}"/>
+            <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+            <br>
+            <br>
+            <label th:for="${#ids.next('massage')}">massage:</label>
+            <br>
+            <textarea rows="10" cols="45" th:field="*{massage}"></textarea>
+            <p th:if="${#fields.hasErrors('massage')}" th:errors="*{massage}"></p>
+            <br>
+            <br>
+            <button>create</button>
+        </form>
+        <a th:href="@{/home}">Home page</a>
+    </body>
+</html>

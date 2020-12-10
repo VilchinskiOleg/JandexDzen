@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>authorisation-page</title>
+    </head>
+    <body>
+        <strong th:if="${massage != null}" th:text="${massage}"></strong>
+
+        <form th:action="@{/home/auth}" method="post" th:object="${userAuthDto}">
+            <label th:for="${#ids.next('login')}">login:</label>
+            <br>
+            <input type="text" th:field="*{login}"/>
+            <p th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></p>
+            <br>
+            <br>
+            <label th:for="${#ids.next('password')}">password:</label>
+            <br>
+            <input type="password" th:field="*{password}"/>
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+            <br>
+            <br>
+            <button>send</button>
+        </form>
+        <a th:href="@{/home}">Home page</a>
+    </body>
+</html>

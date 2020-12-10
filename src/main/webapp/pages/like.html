@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>likes-page</title>
+    </head>
+    <body>
+        <ul th:each="like : ${likes}">
+            <li>
+                <p th:text="${like.id.author.login}"></p>
+                <p>
+                    <em th:text="${like.id.author.age}"></em>
+                    <em>  years old</em>
+                </p>
+            </li>
+        </ul>
+
+        <a th:href="@{/post/show?post-id={id}(id=${postId})}">Go back</a>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>registration-page</title>
+    </head>
+    <body>
+    <strong th:if="${massage != null}" th:text="${massage}"></strong>
+
+    <form th:action="@{/home/reg}" method="post" th:object="${user}" >
+        <label th:for="${#ids.next('name')}">name:</label>
+        <br>
+        <input type="text" th:field="*{name}"/>
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+        <br>
+        <br>
+        <label th:for="${#ids.next('login')}">login:</label>
+        <br>
+        <input type="text" th:field="*{login}"/>
+        <p th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></p>
+        <br>
+        <br>
+        <label th:for="${#ids.next('password')}">password:</label>
+        <br>
+        <input type="password" th:field="*{password}"/>
+        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+        <br>
+        <br>
+        <label th:for="${#ids.next('age')}">age:</label>
+        <br>
+        <input type="test" th:field="*{age}"/>
+        <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>
+        <br>
+        <br>
+        <button>send</button>
+    </form>
+    <a th:href="@{/home}">Home page</a>
+    </body>
+</html>

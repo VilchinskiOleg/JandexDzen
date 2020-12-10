@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>post-page</title>
+    </head>
+    <body>
+
+<!--    Title and massage:-->
+        <div th:text="${post.date.format(post.FORMATTER)}" style="float: right"></div>
+        <h2 th:text="${post.title}"></h2>
+        <p th:text="${post.massage}"></p>
+        <br>
+
+
+<!--    Show all comments to post, if they exist:-->
+        <div th:if="${!post.comments.isEmpty()}">
+            <ul th:each="comment : ${post.comments}">
+                <li >
+                    <p th:text="|${comment.massage} -//- ${comment.author.login}|"></p>
+                    <em th:text="${comment.date.format(post.FORMATTER)}"></em>
+
+                    <div th:if="${session != null && session.user != null && session.user.id == comment.author.id}">
+                            <a th:href="@{/post/delete-comment(post-id=${post.id},comment-id=${comment.id})}">Delete</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+<!--    Show likes counter for the post, and show-likes-action link:-->
+        <div>
+            <a th:href="@{/post/set-like(post-id=${post.id})}">&#x2764</a>
+            <a th:href="@{/post/like(post-id=${post.id})}"
+               th:text="${post.likes}"></a>
+        </div>
+
+
+<!--    Show comments-form:-->
+        <div th:if="${session.user != null}">
+            <form th:action="@{/post/set-comment}" method="post" th:object="${commentCreateDto}">
+                <input type="hidden" name="post-id" th:value="${post.id}">
+
+                <label th:for="${#ids.next('massage')}">massage:</label>
+                <input type="text" th:field="*{massage}"/>
+                <a th:if="${#fields.hasErrors('massage')}" th:errors="*{massage}"></a>
+
+                <button>create</button>
+            </form>
+        </div>
+
+
+<!--    Links:-->
+        <div th:if="${session != null && session.user != null && session.user.id == post.author.id}">
+            <a th:href="@{/post/delete(post-id=${post.id})}">Delete post</a>
+        </div>
+        <a th:href="@{/home}">Home page</a>
+
+    </body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>home-page</title>
+    </head>
+    <body>
+        <div th:if="${session.user != null}">
+            <strong>Hello  </strong>
+            <strong th:text="${session.user.login}"></strong>
+            <strong>  !</strong>
+        </div>
+
+        <p th:if="${session.user == null}">
+            <a th:href="@{/home/reg}">Registration</a>
+            <a th:href="@{/home/auth}">Authorisation</a>
+        </p>
+
+        <p th:if="${session.user != null}">
+            <a th:href="@{/post/create}">Create post</a>
+        </p>
+
+        <div th:if="${posts != null}">
+            <ul>
+                <li th:each="item : ${posts}">
+<!--                    <p th:text="${item.showDate()}"></p>-->
+                    <a th:href="@{/post/show?post-id={id}(id=${item.id})}"
+                       th:text="${item.title}"></a>
+                </li>
+            </ul>
+        </div>
+
+        <p th:if="${session.user != null}">
+            <a th:href="@{/home/log-out}">Log out</a>
+        </p>
+
+    </body>
+</html>
